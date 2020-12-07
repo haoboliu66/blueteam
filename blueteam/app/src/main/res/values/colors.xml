@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="divider">#ffd2d2d2</color>
+
+
+<!--   from spine detector v2 colors.xml -->
+    <color name="layout_default">#A5FFFFFF</color>
+    <color name="layout_press">#8c8B8B7A</color>
+    <color name="input_default">#D3D3D3</color>
+    <color name="input_press">#FFFFFF</color>
+    <color name="text_default">#7FFFFFFF</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="text_color">#F8F8F8</color>
+    <color name="dropdownlist_bg">#A5d5c9b9</color>
+    <color name="dropdownlist_press">#9d9087</color>
+    <color name="dropdownlist_item">#f2eada</color>
+    <color name="dropdownlist_item_press">#c1b5b7</color>
+
+</resources>
