@@ -8,13 +8,76 @@
     tools:context="com.blueteam.BluetoothChat">
 
 
+    <DatePicker
+        android:id="@+id/datePickerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:spinnersShown="false"
+        android:calendarViewShown="true"
+        android:datePickerMode="calendar"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@android:color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="Back"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:id="@+id/back"/>
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            android:id="@+id/splitLineV"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="10dp"
+            android:text="OK"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:id="@+id/ensure"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:text="Select Date"
+        android:id="@+id/datepicker"/>
+
     <Button
         android:id="@+id/report_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Generate your Report"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:text="Find Report"
         android:textColor="@color/white"></Button>
+
+
+
 
 
 </LinearLayout>

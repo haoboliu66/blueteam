@@ -7,11 +7,40 @@
     android:orientation="vertical"
     tools:context="com.blueteam.BluetoothChat">
 
-    <TextView
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    android:orientation="vertical"
+    >
+<!--  https://www.spine-health.com/  -->
+    <ImageButton
+        android:id="@+id/spine_health"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="hello Wiki"
-        android:textColor="@color/white" />
+        android:background="@drawable/spine_health"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        />
 
+
+    <ImageButton
+        android:id="@+id/workout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/workout"
+        android:scaleType="fitXY"
+        />
+
+    <ImageButton
+        android:id="@+id/recovery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/recovery"
+        android:scaleType="fitXY"
+        />
+</LinearLayout>
 
 </LinearLayout>

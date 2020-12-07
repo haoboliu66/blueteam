@@ -91,7 +91,6 @@ public class BluetoothChat extends AppCompatActivity {
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
 
-    // 布局视图
     private TextView mTitle;
     private TextView mConversationView;
     private TextView outcount;
@@ -104,7 +103,6 @@ public class BluetoothChat extends AppCompatActivity {
     private CheckBox autosend;
     private CheckBox out16;
 
-    // 声明button按钮
     private Button mSendButton;
 
     private EditText etAmount;
@@ -124,16 +122,15 @@ public class BluetoothChat extends AppCompatActivity {
     private int countin = 0;
     private int countout = 0;
 
-    // 已连接设备的名称
+    // connected devices name
     private String mConnectedDeviceName;
-    // 输出流缓冲区
+
     private StringBuffer mOutStringBuffer;
 
-    // 本地蓝牙适配器
     private BluetoothAdapter mBluetoothAdapter;
     // 用于通信的服务
     private BluetoothChatService mChatService;
-    // CheckBox用
+    // CheckBox
     private boolean inhex = true;
     private boolean outhex = true;
     private boolean auto = false;
@@ -147,8 +144,8 @@ public class BluetoothChat extends AppCompatActivity {
     private ViewPager mViewPager;
 
 
+    // for fragments
     public static FragmentManager manager;
-
     private LinearLayout cv;
 
     @Override
@@ -156,20 +153,15 @@ public class BluetoothChat extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (D)
             Log.e(TAG, "+++ ON CREATE +++");
-        // window layout
-//        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_bluetooth_chat_layout);
-//        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE,
-//                R.layout.custom_title);
 
         initView();
 
-//        mTitle.setText(R.string.activity_name);
-
         // get bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+
 //        // 如果没有蓝牙适配器，则不支持
-//
         Log.d("BluetoothAdapter: ", String.valueOf(mBluetoothAdapter));
 
 //        if (mBluetoothAdapter == null) {
@@ -182,12 +174,6 @@ public class BluetoothChat extends AppCompatActivity {
 
     }
 
-
-    public void search() {
-        Intent serverIntent = new Intent(BluetoothChat.this,
-                DeviceListActivity.class);
-        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-    }
 
     private void initView() {
         in16 = (CheckBox) findViewById(R.id.in16);
@@ -323,6 +309,13 @@ public class BluetoothChat extends AppCompatActivity {
     }
 
     /* ------------------------------ BlueTooth code -------------------------------------------------*/
+
+
+    public void search() {
+        Intent serverIntent = new Intent(BluetoothChat.this,
+                DeviceListActivity.class);
+        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
+    }
 
     private OnCheckedChangeListener listener = new OnCheckedChangeListener() {
 
