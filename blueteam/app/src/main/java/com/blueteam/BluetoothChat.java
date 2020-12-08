@@ -113,6 +113,7 @@ public class BluetoothChat extends AppCompatActivity {
     private int limit = 5; //level limit
 
     private Button search;
+    private Button calibrate;
     private Button disc;
     // 用来保存存储的文件名
     public String filename = "";
@@ -128,7 +129,7 @@ public class BluetoothChat extends AppCompatActivity {
     private StringBuffer mOutStringBuffer;
 
     private BluetoothAdapter mBluetoothAdapter;
-    // 用于通信的服务
+    // communication service
     private BluetoothChatService mChatService;
     // CheckBox
     private boolean inhex = true;
@@ -160,7 +161,6 @@ public class BluetoothChat extends AppCompatActivity {
         // get bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-
 //        // 如果没有蓝牙适配器，则不支持
         Log.d("BluetoothAdapter: ", String.valueOf(mBluetoothAdapter));
 
@@ -180,28 +180,23 @@ public class BluetoothChat extends AppCompatActivity {
         autosend = (CheckBox) findViewById(R.id.autosend);
         out16 = (CheckBox) findViewById(R.id.out16);
 
-
-        // 获得button的对象
-        search = findViewById(R.id.search);
+        search = findViewById(R.id.search);  // search for devices
+        calibrate = findViewById(R.id.calibrate);  // calibrate device
         disc = findViewById(R.id.discoverable1);
 
         mSendButton = findViewById(R.id.button_send);
 
+        // level change part
         etAmount = findViewById(R.id.etAmount);
         btnDecrease = findViewById(R.id.btnDecrease);
         btnIncrease = findViewById(R.id.btnIncrease);
-        //获取选择控件的值
 
-        // 设置custom title
-//        mTitle = (TextView) findViewById(R.id.title_left_text);
-//
-//        mTitle = (TextView) findViewById(R.id.title_right_text);
         view = findViewById(R.id.edit_text_out);
 
         imageView = findViewById(R.id.main_pic);
 
 
-        //tab bar code part
+        //tab bar part
         mViewPager = findViewById(R.id.mViewPager);
         MainAdapter mainAdapter = new MainAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mainAdapter);
@@ -209,7 +204,6 @@ public class BluetoothChat extends AppCompatActivity {
 
         alphaTabsIndicator = findViewById(R.id.alphaIndicator);
         alphaTabsIndicator.setViewPager(mViewPager);
-
 
         manager = getSupportFragmentManager();
     }
@@ -249,10 +243,7 @@ public class BluetoothChat extends AppCompatActivity {
 
         public MainAdapter(FragmentManager fm) {
             super(fm);
-//            fragments.add(new NowFragment());
-//            fragments.add(new ReportFragment());
-//            fragments.add(new WikiFragment());
-//            fragments.add(new ProfileFragment());
+            // for test
             fragments.add(TextFragment.newInstance(titles[0]));
             fragments.add(TextFragment.newInstance(titles[1]));
             fragments.add(TextFragment.newInstance(titles[2]));
@@ -276,8 +267,6 @@ public class BluetoothChat extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-
-            System.out.println("Position: " + position);
 
             FragmentTransaction transaction = manager.beginTransaction();
 
@@ -322,7 +311,7 @@ public class BluetoothChat extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView,
                                      boolean isChecked) {
-            // in16被选中
+            // in16 is selected
             if (buttonView.getId() == R.id.in16) {
                 if (isChecked) {
                     Toast.makeText(BluetoothChat.this, "16进制显示",
@@ -332,7 +321,7 @@ public class BluetoothChat extends AppCompatActivity {
                     inhex = false;
             }
 
-            //out16选中
+            //out16 is selected
             if (buttonView.getId() == R.id.out16) {
                 if (isChecked) {
                     Toast.makeText(BluetoothChat.this, "16进制发送",
@@ -341,7 +330,7 @@ public class BluetoothChat extends AppCompatActivity {
                 } else
                     outhex = false;
             }
-            // 自动发送被选中
+            // autosend is selected
             if (buttonView.getId() == R.id.autosend) {
                 if (isChecked) {
                     Toast.makeText(BluetoothChat.this, "自动发送",

@@ -54,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void initView(){
-        // components
         etUsername = findViewById(R.id.et_username);
         etPassword = findViewById(R.id.et_password);
         login_btn = findViewById(R.id.log_in);
@@ -102,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         .port(API.PORT)
                         .addPathSegments(API.LOGIN)
                         .build();
-                System.out.println(url);
+                Log.d("LoginActivity", String.valueOf(url));
                 login(url, formBody);
         }
     }
@@ -115,14 +114,14 @@ public class LoginActivity extends AppCompatActivity {
 
         new Thread(() -> {
             Request request = new Request.Builder().url(url).post(body).build();
-            System.out.println(request);
+            Log.d("LoginActivity", String.valueOf(request));
             try {
                 Response response = okHttpClient.newCall(request).execute();
-                System.out.println(response.isSuccessful());
-                System.out.println(response.body().string());
+                Log.d("LoginActivity", String.valueOf(response.isSuccessful()));
+                Log.d("LoginActivity", String.valueOf(response.body().string()));
+
                 // jump to main UI
                 Log.d("LoginActivity","success login");
-
                 Intent intent = new Intent(LoginActivity.this, BluetoothChat.class);
                 startActivity(intent);
             } catch (Exception e) {
