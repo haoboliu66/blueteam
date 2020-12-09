@@ -2,7 +2,7 @@ package com.blueteam.api;
 
 public class API {
 
-    // localhost:8080/login
+    // 192.168.1.13:8080/login
     public static final String HTTP = "http";
     public static final String IP = "192.168.1.13";
     public static final Integer PORT = 8888;

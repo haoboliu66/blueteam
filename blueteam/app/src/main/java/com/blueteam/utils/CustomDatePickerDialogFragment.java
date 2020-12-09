@@ -81,28 +81,23 @@ public class CustomDatePickerDialogFragment extends DialogFragment implements Da
             ensureButton.setOnClickListener(this);
             splitLineV = view.findViewById(R.id.splitLineV);
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                //bug1:日历模式，在5.0以下设置的可选时间区间如果与当前日期在同一栏会crash，所以只能用滚轮模式
                 datePicker.setCalendarViewShown(false);
                 datePicker.setSpinnersShown(true);
-                //滚轮模式必须使用确定菜单
                 ensureButton.setVisibility(View.VISIBLE);
                 splitLineV.setVisibility(View.VISIBLE);
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                     && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                //bug2:LOLLIPOP上OnDateChangedListener回调无效(5.0存在，5.1修复),必须使用确定菜单回传选定日期
                 ensureButton.setVisibility(View.VISIBLE);
                 splitLineV.setVisibility(View.VISIBLE);
-                //如果只要日历部分，隐藏header
                 ViewGroup mContainer = (ViewGroup) datePicker.getChildAt(0);
                 View header = mContainer.getChildAt(0);
                 header.setVisibility(View.GONE);
             } else {
-                //bug4:LOLLIPOP和Marshmallow上，使用spinner模式，然后隐藏滚轮，显示日历(spinner模式下的日历没有头部)，日历最底部一排日期被截去部分。所以只能使用calender模式，然后手动隐藏header（系统没有提供隐藏header的api）。
-                //如果只要日历部分，隐藏header
                 ViewGroup mContainer = (ViewGroup) datePicker.getChildAt(0);
                 View header = mContainer.getChildAt(0);
                 header.setVisibility(View.GONE);
-                //Marshmallow上底部留白太多，减小间距
+
+                //layout change
                 LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) datePicker.getLayoutParams();
                 layoutParams.bottomMargin = 10;
                 datePicker.setLayoutParams(layoutParams);
@@ -124,10 +119,8 @@ public class CustomDatePickerDialogFragment extends DialogFragment implements Da
             datePicker.setMinDate(startDate.getTimeInMillis());
         }
         if (endDate != null) {
-            //bug5:5.1上，maxdate不可选。由于5.0有bug3，所以可能bug5被掩盖了。4.x和6.0+版本没有这个问题。
-            //bug5在6.0+上有另一个表现形式：初始化时会触发一次onDateChanged回调。通过源码分析一下原因：init方法只会设置控件当前日期的
-            //年月日，而时分秒默认使用现在时间的时分秒，所以当前日期大于>最大日期，执行setMaxDate方法时，就会触发一次onDateChanged回调。
-            //同理，setMinDate方法也面临同样的方法。所以设置范围时，MinDate取0时0分0秒，MaxDate取23时59分59秒。
+
+
             endDate.set(Calendar.HOUR_OF_DAY, 23);
             endDate.set(Calendar.MINUTE, 59);
             endDate.set(Calendar.SECOND, 59);
@@ -150,14 +143,13 @@ public class CustomDatePickerDialogFragment extends DialogFragment implements Da
     }
 
     private void returnSelectedDateUnderLOLLIPOP() {
-        //bug3:5.0上超过可选区间的日期依然能选中,所以要手动校验.5.1上已解决，但是为了与5.0保持一致，也采用确定菜单返回日期
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Calendar selectedDate = Calendar.getInstance();
             selectedDate.set(datePicker.getYear(), datePicker.getMonth(), datePicker.getDayOfMonth(), 0, 0, 0);
             selectedDate.set(Calendar.MILLISECOND, 0);
             if (selectedDate.before(startDate) || selectedDate.after(endDate)) {
-                Toast.makeText(getActivity(), "日期超出有效范围", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Invalid Date", Toast.LENGTH_SHORT).show();
                 return;
             }
         }
@@ -186,10 +178,10 @@ public class CustomDatePickerDialogFragment extends DialogFragment implements Da
     @Override
     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-                && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) { //LOLLIPOP上，这个回调无效，排除将来可能的干扰
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return;
         }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) { //5.0以下，必须采用滚轮模式，所以需借助确定菜单回传选定值
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
         if (onSelectedDateListener != null) {

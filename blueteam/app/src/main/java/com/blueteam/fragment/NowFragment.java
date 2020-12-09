@@ -14,13 +14,11 @@ import com.blueteam.R;
 
 public class NowFragment extends Fragment {
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d("NowFragment", "inflate NowFragment");
         View view = inflater.inflate(R.layout.fragment_now, null);
-
 
         return view;
     }

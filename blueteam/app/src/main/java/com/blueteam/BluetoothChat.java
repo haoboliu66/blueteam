@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2009 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.blueteam;
 
 import android.app.Activity;
@@ -74,20 +58,19 @@ public class BluetoothChat extends AppCompatActivity {
     // Debugging
     private static final String TAG = "BluetoothChat";
     private static final boolean D = true;
-    //返回页面标志
     private boolean exit = false;
 
-    // 来自BluetoothChatService Handler的消息类型
+    // type from BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
     public static final int MESSAGE_TOAST = 5;
 
-    // 来自BluetoothChatService Handler的关键名
     public static final String DEVICE_NAME = "device_name";
     public static final String TOAST = "toast";
-    // Intent请求代码
+
+    // intent request
     private static final int REQUEST_CONNECT_DEVICE = 1;
     private static final int REQUEST_ENABLE_BT = 2;
 
@@ -98,7 +81,6 @@ public class BluetoothChat extends AppCompatActivity {
 
     private TextView view;
 
-    // 声明复选按钮
     private CheckBox in16;
     private CheckBox autosend;
     private CheckBox out16;
@@ -115,13 +97,12 @@ public class BluetoothChat extends AppCompatActivity {
     private Button search;
     private Button calibrate;
     private Button disc;
-    // 用来保存存储的文件名
     public String filename = "";
-    // 保存用数据缓存
     private String fmsg = "";
-    // 计数用
-    private int countin = 0;
-    private int countout = 0;
+
+    // for count
+    private int countIn = 0;
+    private int countOut = 0;
 
     // connected devices name
     private String mConnectedDeviceName;
@@ -144,7 +125,6 @@ public class BluetoothChat extends AppCompatActivity {
     private AlphaTabsIndicator alphaTabsIndicator;
     private ViewPager mViewPager;
 
-
     // for fragments
     public static FragmentManager manager;
     private LinearLayout cv;
@@ -161,9 +141,10 @@ public class BluetoothChat extends AppCompatActivity {
         // get bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-//        // 如果没有蓝牙适配器，则不支持
+
         Log.d("BluetoothAdapter: ", String.valueOf(mBluetoothAdapter));
 
+        // if no bluetooth adapter available, finish
 //        if (mBluetoothAdapter == null) {
 //            Toast.makeText(this, "BlueTooth Not Available", Toast.LENGTH_LONG).show();
 //            finish();
@@ -529,8 +510,8 @@ public class BluetoothChat extends AppCompatActivity {
                     // 发送计数
                     if (outhex == true) {
                         String writeMessage = Data_syn.Bytes2HexString(writeBuf);
-                        countout += writeMessage.length() / 2;
-                        outcount.setText("" + countout);
+                        countOut += writeMessage.length() / 2;
+                        outcount.setText("" + countOut);
                     } else if (outhex == false) {
                         String writeMessage = null;
                         try {
@@ -538,8 +519,8 @@ public class BluetoothChat extends AppCompatActivity {
                         } catch (UnsupportedEncodingException e1) {
                             e1.printStackTrace();
                         }
-                        countout += writeMessage.length();
-                        outcount.setText("" + countout);
+                        countOut += writeMessage.length();
+                        outcount.setText("" + countOut);
                     }
                     break;
                 case MESSAGE_READ:
@@ -554,8 +535,8 @@ public class BluetoothChat extends AppCompatActivity {
                         fmsg += readMessage;
                         mConversationView.append(readMessage);
                         // 接收计数，更显UI
-                        countin += readMessage.length() / 2;
-                        incount.setText("" + countin);
+                        countIn += readMessage.length() / 2;
+                        incount.setText("" + countIn);
                     } else if (inhex == false) {
                         String readMessage = null;
                         try {
@@ -566,8 +547,8 @@ public class BluetoothChat extends AppCompatActivity {
                         fmsg += readMessage;
                         mConversationView.append(readMessage);
                         // 接收计数，更新UI
-                        countin += readMessage.length();
-                        incount.setText("" + countin);
+                        countIn += readMessage.length();
+                        incount.setText("" + countIn);
                     }
 
                     switch (readBuf[0]) {
@@ -667,8 +648,8 @@ public class BluetoothChat extends AppCompatActivity {
 
     // 清除计数按键响应函数
     public void onClearCountButtonClicked(View v) {
-        countin = 0;
-        countout = 0;
+        countIn = 0;
+        countOut = 0;
         outcount.setText("0");
         incount.setText("0");
         return;

@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void initEvent(){
-        // click event
         login_btn.setOnClickListener(new LoginListener());
 
         toRegister.setOnClickListener(new View.OnClickListener() {

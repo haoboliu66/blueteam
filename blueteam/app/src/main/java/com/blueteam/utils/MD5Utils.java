@@ -9,6 +9,9 @@ import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * md5 for data encryption
+ */
 public class MD5Utils {
 
     //encrypt text
@@ -44,15 +47,12 @@ public class MD5Utils {
             dis = new DigestInputStream(fis,messageDigest);
 
             byte[] buffer = new byte[buffersize];
-            //DigestInputStream实际上在流处理文件时就在内部就进行了一定的处理
+
             while (dis.read(buffer) > 0);
 
-            //通过DigestInputStream对象得到一个最终的MessageDigest对象。
             messageDigest = dis.getMessageDigest();
 
-            // 通过messageDigest拿到结果，也是字节数组，包含16个元素
             byte[] array = messageDigest.digest();
-            // 同样，把字节数组转换成字符串
             StringBuilder hex = new StringBuilder(array.length * 2);
             for (byte b : array) {
                 if ((b & 0xFF) < 0x10){

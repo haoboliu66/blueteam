@@ -9,6 +9,7 @@ import com.blueteam.R;
 import com.yinglan.alphatabs.AlphaTabsIndicator;
 import com.yinglan.alphatabs.OnTabChangedListner;
 
+// open source code for test
 public class SecondActivity extends AppCompatActivity {
 
     @Override
@@ -40,7 +41,6 @@ public class SecondActivity extends AppCompatActivity {
         alphaTabsIndicator2.getTabView(3).showPoint();
 
         alphaTabsIndicator2.setTabCurrenItem(2);
-        //tab选中的监听回调
         alphaTabsIndicator2.setOnTabChangedListner(new OnTabChangedListner() {
             @Override
             public void onTabSelected(int tabNum) {
