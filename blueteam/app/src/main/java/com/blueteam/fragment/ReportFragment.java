@@ -1,6 +1,7 @@
 package com.blueteam.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.blueteam.R;
+import com.blueteam.report.ChartActivity;
 import com.blueteam.utils.CustomDatePickerDialogFragment;
 
 import java.util.Calendar;
@@ -53,6 +55,10 @@ public class ReportFragment extends Fragment implements View.OnClickListener, Cu
             public void onClick(View v) {
                 Context context = v.getContext();
                 Toast.makeText(context, "Finding Report For You!", Toast.LENGTH_SHORT).show();
+                Log.d("Report Fragment", "To ChartActivity");
+                System.out.println("context: " + getContext());
+                Intent intent = new Intent(getContext(), ChartActivity.class);
+                startActivity(intent);
             }
         });
     }

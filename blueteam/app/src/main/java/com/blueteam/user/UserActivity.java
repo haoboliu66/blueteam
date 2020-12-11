@@ -20,7 +20,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * main UI
+ * main UI deprecated /v2
  */
 public class UserActivity extends AppCompatActivity implements Observer {
 

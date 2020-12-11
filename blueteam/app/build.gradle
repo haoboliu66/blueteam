@@ -28,6 +28,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.google.android.material:material:1.1.0'
@@ -40,5 +46,7 @@ dependencies {
 
     implementation 'androidx.viewpager:viewpager:1.0.0'
     implementation 'com.yinglan.alphatabs:library:1.0.8'
+
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
 }
