@@ -24,7 +24,8 @@ public class AccountController {
     public String login(String username, String password) {
         log.info("username: " + username);
         log.info("password: " + password);
-        return accountService.login(username, password);
+        Account account = accountService.login(username, password);
+        return JSONObject.toJSONString(account);
     }
 
     @PostMapping("/register")
@@ -32,28 +33,13 @@ public class AccountController {
         log.info("username: " + username);
         log.info("password: " + password);
         log.info("email: " + email);
-        Account account = new Account(username, password, email);
-        return "register success";
+        int res = accountService.register(username, password, email);
+        if(res > 0){
+            return JSONObject.toJSONString(new String("register success"));
+        }
+        return JSONObject.toJSONString(new String("register fail"));
     }
 
-//    @RequestMapping("/validateUsername")
-//    public String validate(@RequestParam("username") String username) {
-//        System.out.println("validate: " + username);
-//        Account account = accountService.selectByUsername(username);
-//        ReturnObject returnObject = new ReturnObject();
-//        if (account != null) {
-//            returnObject = new ReturnObject().setCode(-1).setMessage("userName exists");
-//        }
-//        return JSONObject.toJSONString(returnObject);
-//    }
-//
-//
-
-    @GetMapping("/logout")
-    public void logOut(HttpSession session) {
-        log.info("log out: ");
-        session.invalidate();
-    }
 
 
 }
