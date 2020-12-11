@@ -48,7 +48,7 @@ public class ChartActivity extends AppCompatActivity {
 
 
     /**
-     * A fragment containing a line chart.
+     * fragment for a line chart.
      */
     public static class PlaceholderFragment extends Fragment {
 
@@ -88,7 +88,6 @@ public class ChartActivity extends AppCompatActivity {
 
             generateData();
 
-            // Disable viewport recalculations, see toggleCubic() method for more info.
             chart.setViewportCalculationEnabled(false);
 
             resetViewport();
@@ -96,7 +95,6 @@ public class ChartActivity extends AppCompatActivity {
             return rootView;
         }
 
-        // MENU
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.line_chart, menu);
@@ -222,7 +220,6 @@ public class ChartActivity extends AppCompatActivity {
         }
 
         private void resetViewport() {
-            // Reset viewport height range to (0,100)
             final Viewport v = new Viewport(chart.getMaximumViewport());
             v.bottom = 0;
             v.top = 100;
@@ -318,14 +315,6 @@ public class ChartActivity extends AppCompatActivity {
             generateData();
 
             if (isCubic) {
-                // It is good idea to manually set a little higher max viewport for cubic lines because sometimes line
-                // go above or below max/min. To do that use Viewport.inest() method and pass negative value as dy
-                // parameter or just set top and bottom values manually.
-                // In this example I know that Y values are within (0,100) range so I set viewport height range manually
-                // to (-5, 105).
-                // To make this works during animations you should use Chart.setViewportCalculationEnabled(false) before
-                // modifying viewport.
-                // Remember to set viewport after you call setLineChartData().
                 final Viewport v = new Viewport(chart.getMaximumViewport());
                 v.bottom = -5;
                 v.top = 105;
@@ -339,9 +328,6 @@ public class ChartActivity extends AppCompatActivity {
                 v.bottom = 0;
                 v.top = 100;
 
-                // You have to set max and current viewports separately.
-                // In this case, if I want animation I have to set current viewport first and use animation listener.
-                // Max viewport will be set in onAnimationFinished method.
                 chart.setViewportAnimationListener(new ChartAnimationListener() {
 
                     @Override
